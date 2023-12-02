@@ -6,7 +6,7 @@ node {
     }
 
     stage('Ready') {      
-        echo 'Ready to build'
+        echo 'Ready to build' 
         gradleHome = tool 'gradle' 
     }
 
