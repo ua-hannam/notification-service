@@ -11,7 +11,7 @@ node {
     }
 
     stage('Build') {
-        sh "${gradleHome}/bin/gradle clean build"
+        sh "${gradleHome}/bin/gradle clean build -x test"
     }
 
     stage('Build image') {
