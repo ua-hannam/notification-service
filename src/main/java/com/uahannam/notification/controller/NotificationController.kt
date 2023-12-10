@@ -1,4 +1,4 @@
-package com.uahannam.notification.handler
+package com.uahannam.notification.controller
 
 import com.uahannam.notification.service.PushService
 import org.springframework.http.HttpStatus
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class NotificationHandler(
+class NotificationController(
     private val pushService: PushService
 ) {
 
