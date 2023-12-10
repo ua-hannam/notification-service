@@ -1,18 +1,19 @@
 package com.uahannam.notification.handler
 
 import com.uahannam.notification.service.PushService
-import org.springframework.stereotype.Component
-import org.springframework.web.reactive.function.server.ServerRequest
-import org.springframework.web.reactive.function.server.ServerResponse
-import reactor.core.publisher.Mono
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RestController
 
-@Component
+@RestController
 class NotificationHandler(
     private val pushService: PushService
 ) {
 
-    fun testNotification(serverRequest: ServerRequest) : Mono<ServerResponse> {
+    @GetMapping("/api/push/test")
+    fun testNotification() : ResponseEntity<HttpStatus> {
         pushService.sendTestPush()
-        return ServerResponse.ok().build()
+        return ResponseEntity.ok().build()
     }
 }
