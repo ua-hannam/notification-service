@@ -1,8 +1,8 @@
 def app
 def notifySlack(STATUS, COLOR) {
-    slackSend channel: '#채널명', 
+    slackSend channel: '#backend-build-log', 
 	message: STATUS+" : " + "${env.JOB_NAME}[${env.BUILD_NUMBER}] <${env.BUILD_URL}|OPEN>", 
-	color: COLOR teamDomain: 'uahan'
+	color: COLOR, teamDomain: 'uahan'
 }
 
 
