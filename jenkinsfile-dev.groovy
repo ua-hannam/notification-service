@@ -5,11 +5,11 @@ def notifyProductionDeploy() {
     if (currentBuild.currentResult == 'SUCCESS') {
         def message = "@here Build <${env.BUILD_URL}|${currentBuild.displayName}> " +
             "${currentBuild.currentResult} deployed to the production"
-        slackSend(message: message, channel: '#micro', color:  '#00FF00', token: 'token')
+        slackSend(message: message, channel: '#backend-build-log', color:  '#00FF00')
     } else {
         def message = "@here Build <${env.BUILD_URL}|${currentBuild.displayName}> " +
             "${currentBuild.currentResult} deployed to the production"
-        slackSend(message: message, channel: '#micro', color: 'danger', token: 'token')
+        slackSend(message: message, channel: '#backend-build-log', color: 'danger')
     }
 }
 
