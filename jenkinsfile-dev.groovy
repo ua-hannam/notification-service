@@ -1,8 +1,8 @@
-def app
+pipeline {
+    agent any
+    def app
 
-node {
-        try {
-        slackSend(channel: '#backend-bulid-log', message: 'Build start')
+    node {
         stage('Checkout') {
             checkout scm 
         }
@@ -15,10 +15,30 @@ node {
             sh "${gradleHome}/bin/gradle clean build -x test"
         }
         
-        slackSend(channel: '#backend-bulid-log', message: 'Build successful')
-        
-        } catch (Exception e) {
-            slackSend(channel: '#backend-bulid-log', message: 'Build failed: ' + e.getMessage())
-            throw e 
+     }
+         post {
+        success {
+            slackSend (
+                channel: '#build-log', 
+                color: '#00FF00', 
+                message: """
+SUCCESS 
+Job : ${env.JOB_NAME} - [#${env.BUILD_NUMBER}]
+<${env.BUILD_URL}|OPEN>
+"""
+            )
         }
+        failure {
+            slackSend (
+                channel: '#build-log', 
+                color: '#FF0000', 
+                message: """
+FAIL 
+- Job : ${env.JOB_NAME} - [#${env.BUILD_NUMBER}]
+<${env.BUILD_URL}|OPEN>
+} 
+                """
+            )
+        }
+    }
 }
