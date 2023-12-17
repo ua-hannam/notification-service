@@ -1,8 +1,6 @@
 def app
 
 node {
-    try {
-        notifySlack("STARTED", "#0000FF")
     
         stage('Checkout') {
             checkout scm 
@@ -16,9 +14,4 @@ node {
         stage('Build') {
             sh "${gradleHome}/bin/gradle clean build -x test"
         }
-
-        notifySlack("SUCCESS", "#00FF00")
- 	} catch(e) {
-        notifySlack("FAILED", "#FF0000")
-	}
 }
