@@ -21,13 +21,13 @@ node {
 
     slackSend(channel: '#backend-bulid-log', color: 'good', message: """
 *Build successful*
-Job : ${env.JOB_NAME} - [#${env.BUILD_NUMBER}] <${env.BUILD_URL}|OPEN>
+Job : _${env.JOB_NAME}_[#${env.BUILD_NUMBER}] <${env.BUILD_URL}|OPEN>
 """)
 
     } catch (Exception e) {
         slackSend(channel: '#backend-bulid-log', color: 'danger', message: """ 
 *Build failed*
-- Job : ${env.JOB_NAME} - [#${env.BUILD_NUMBER}] <${env.BUILD_URL}|OPEN>
+- Job : _${env.JOB_NAME}_[#${env.BUILD_NUMBER}] <${env.BUILD_URL}|OPEN>
 } """)
     }
 }
