@@ -8,13 +8,13 @@ def notifyProductionDeploy() {
 *Build successful*
 Job : _${env.JOB_NAME}_[#${env.BUILD_NUMBER}] <${env.BUILD_URL}|OPEN>
 """
-        slackSend(message: message, channel: '#backend-build-log', color:  '#00FF00')
+        slackSend(message: message, channel: '#backend-build-log', color:  '#00FF00', token: 'token')
     } else {
         def message = """
 *Build failed*
 - Job : _${env.JOB_NAME}_[#${env.BUILD_NUMBER}] <${env.BUILD_URL}|OPEN>
 """
-        slackSend(message: message, channel: '#backend-build-log', color: 'danger')
+        slackSend(message: message, channel: '#backend-build-log', color: 'danger', token: 'token')
     }
 }
 
@@ -39,6 +39,5 @@ node {
 
 stage('notifyProductionDeploy') {
   // do stuff
-  echo currentBuild.currentResult
   notifyProductionDeploy()
 }
