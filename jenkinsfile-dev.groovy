@@ -1,29 +1,16 @@
-pipeline {
-    agent any
+def app
+
+node {
+        stage('Checkout') {
+            checkout scm 
+        }
+        stage('Ready') {      
+            echo 'Ready to build' 
+            gradleHome = tool 'gradle'   
+        }
     
-    post {
-        success {
-            slackSend (
-                channel: '#backend-build-log', 
-                color: '#00FF00', 
-                message: """
-SUCCESS 
-Job : ${env.JOB_NAME} - [#${env.BUILD_NUMBER}]
-<${env.BUILD_URL}|OPEN>
-"""
-            )
+        stage('Build') {
+            sh "${gradleHome}/bin/gradle clean build -x test"
         }
-        failure {
-            slackSend (
-                channel: '#backend-build-log', 
-                color: '#FF0000', 
-                message: """
-FAIL 
-- Job : ${env.JOB_NAME} - [#${env.BUILD_NUMBER}]
-<${env.BUILD_URL}|OPEN>
-} 
-                """
-            )
-        }
-    }
+        
 }
