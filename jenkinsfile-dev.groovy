@@ -2,6 +2,7 @@ def app
 
 /* Slack Notification Set */
 def notifyProductionDeploy() {
+    
     if (currentBuild.currentResult == 'SUCCESS') {
         def message = "@here Build <${env.BUILD_URL}|${currentBuild.displayName}> " +
             "${currentBuild.currentResult} deployed to the production"
@@ -34,5 +35,6 @@ node {
 
 stage('notifyProductionDeploy') {
   // do stuff
+  echo currentBuild.currentResult
   notifyProductionDeploy()
 }
