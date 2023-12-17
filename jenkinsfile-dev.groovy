@@ -5,6 +5,7 @@ node {
     slackSend(channel: '#backend-bulid-log', message: """
 *Build start* -- ${env.JOB_NAME} - [#${env.BUILD_NUMBER}]
 """)
+        
     stage('Checkout') {
         checkout scm 
     }
