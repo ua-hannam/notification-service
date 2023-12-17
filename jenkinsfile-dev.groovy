@@ -1,22 +1,7 @@
 pipeline {
     agent any
-    def app
-
-    node {
-        stage('Checkout') {
-            checkout scm 
-        }
-        stage('Ready') {      
-            echo 'Ready to build' 
-            gradleHome = tool 'gradle'   
-        }
     
-        stage('Build') {
-            sh "${gradleHome}/bin/gradle clean build -x test"
-        }
-        
-     }
-         post {
+    post {
         success {
             slackSend (
                 channel: '#backend-build-log', 
