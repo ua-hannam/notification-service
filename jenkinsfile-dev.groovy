@@ -2,7 +2,7 @@ def app
 
 node {
         try {
-        slackSend(channel: '# backend-bulid-log', message: 'Build start')
+        slackSend(channel: '# backend-bulid-log', message: 'Build start', token: 'w8rDsXyLwtcCgxzzFuH3Op0R')
         stage('Checkout') {
             checkout scm 
         }
