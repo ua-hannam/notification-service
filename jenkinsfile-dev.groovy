@@ -1,12 +1,8 @@
 def app
-def notifySlack(STATUS, COLOR) {
-    slackSend channel: '#backend-build-log', 
-	message: STATUS+" : " + "${env.JOB_NAME}[${env.BUILD_NUMBER}] <${env.BUILD_URL}|OPEN>", 
-	color: COLOR, teamDomain: 'uahan', tokenCredentialId: 'slack-credential-id'
-}
+def massage = "Job : _${env.JOB_NAME}_[#${env.BUILD_NUMBER}] <${env.BUILD_URL}|OPEN>"
 
 node {
-    try {
+    try{
     slackSend(channel: '#backend-bulid-log', message: """
 *Build start(_${env.JOB_NAME}_[#${env.BUILD_NUMBER}])*
 """)
@@ -23,10 +19,16 @@ node {
     stage('Build') {
         sh "${gradleHome}/bin/gradle clean build -x test"
     }
-    
-    notifySlack(currentBuild.currentResult, "#00FF00")
+
+    slackSend(channel: '#backend-bulid-log', color: '#00FF00', message: """
+*Build successful*
+${massage}
+""")
 
     } catch (Exception e) {
-	notifySlack(currentBuild.currentResult, "#FF0000")
+        slackSend(channel: '#backend-bulid-log', color: 'danger', message: """ 
+*Build failed*
+${massage}
+""")
     }
 }
