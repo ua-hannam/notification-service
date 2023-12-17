@@ -3,7 +3,7 @@ def app
 node {
     try{
     slackSend(channel: '#backend-bulid-log', message: """
--- ${env.JOB_NAME} -- Build start
+Build start- -- ${env.JOB_NAME}
 """)
     stage('Checkout') {
         checkout scm 
