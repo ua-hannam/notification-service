@@ -3,8 +3,8 @@ def app
 node {
     try{
     slackSend(channel: '#backend-bulid-log', message: """
-Build start- -- ${env.JOB_NAME}
-""")
+Build start -- ${env.JOB_NAME} - [#${env.BUILD_NUMBER}]
+""", slackResponse.addReaction("thumbsup"))
     stage('Checkout') {
         checkout scm 
     }
@@ -18,13 +18,13 @@ Build start- -- ${env.JOB_NAME}
         sh "${gradleHome}/bin/gradle clean build -x test"
     }
 
-    slackSend(channel: '#backend-bulid-log', color: '#00FF00', message: """
+    slackSend(channel: '#backend-bulid-log', color: 'good', message: """
 Build successful
 Job : ${env.JOB_NAME} - [#${env.BUILD_NUMBER}] <${env.BUILD_URL}|OPEN>
 """)
 
     } catch (Exception e) {
-        slackSend(channel: '#backend-bulid-log', color: '#FF0000', message: """ 
+        slackSend(channel: '#backend-bulid-log', color: 'danger', message: """ 
 Build failed
 - Job : ${env.JOB_NAME} - [#${env.BUILD_NUMBER}] <${env.BUILD_URL}|OPEN>
 } """)
