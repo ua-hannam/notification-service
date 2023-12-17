@@ -2,7 +2,7 @@ def app
 
 node {
         try {
-        slackSend(channel: '#backend-bulid-log', message: 'Build start')
+        slackSend(channel: '# backend-bulid-log', message: 'Build start')
         stage('Checkout') {
             checkout scm 
         }
@@ -15,10 +15,10 @@ node {
             sh "${gradleHome}/bin/gradle clean build -x test"
         }
         
-        slackSend(channel: '#backend-bulid-log', message: 'Build successful')
+        slackSend(channel: '# backend-bulid-log', message: 'Build successful')
         
         } catch (Exception e) {
-            slackSend(channel: '#backend-bulid-log', message: 'Build failed: ' + e.getMessage())
+            slackSend(channel: '# backend-bulid-log', message: 'Build failed: ' + e.getMessage())
             throw e 
         }
 }
