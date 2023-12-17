@@ -7,7 +7,7 @@ def notifySlack(STATUS, COLOR) {
 
 
 node {
-    try{
+    try {
     slackSend(channel: '#backend-bulid-log', message: """
 *Build start(_${env.JOB_NAME}_[#${env.BUILD_NUMBER}])*
 """)
