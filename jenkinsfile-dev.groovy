@@ -15,10 +15,10 @@ node {
             sh "${gradleHome}/bin/gradle clean build -x test"
         }
         
-        slackSend(channel: '# backend-bulid-log', message: 'Build successful')
+        slackSend(channel: '# backend-bulid-log', message: 'Build successful', token: 'w8rDsXyLwtcCgxzzFuH3Op0R')
         
         } catch (Exception e) {
-            slackSend(channel: '# backend-bulid-log', message: 'Build failed: ' + e.getMessage())
+            slackSend(channel: '# backend-bulid-log', message: 'Build failed: ' + e.getMessage(), token: 'w8rDsXyLwtcCgxzzFuH3Op0R')
             throw e 
         }
 }
