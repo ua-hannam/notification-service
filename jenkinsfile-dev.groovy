@@ -19,7 +19,7 @@ pipeline {
          post {
         success {
             slackSend (
-                channel: '#build-log', 
+                channel: '#backend-build-log', 
                 color: '#00FF00', 
                 message: """
 SUCCESS 
@@ -30,7 +30,7 @@ Job : ${env.JOB_NAME} - [#${env.BUILD_NUMBER}]
         }
         failure {
             slackSend (
-                channel: '#build-log', 
+                channel: '#backend-build-log', 
                 color: '#FF0000', 
                 message: """
 FAIL 
